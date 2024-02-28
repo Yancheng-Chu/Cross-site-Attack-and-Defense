@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'
+ ; ">
+
+    <!-- Internal game scripts/styles, mostly boring stuff -->
+    <script src="/static/game-frame.js"></script>
+    <link rel="stylesheet" href="/static/game-frame-styles.css"/>
+
+    <!-- Load jQuery -->
+    <script
+            src="/static/jquery.min.js">
+    </script>
+
+        <script
+            src="/static/chooseTab.js">
+    </script>
+
+
+
+</head>
+<body id="level3">
+<div id="header">
+    <img id="logo" src="/static/level3.png">
+    <span>Take a tour of our cloud data center.</a>
+</div>
+
+
+{#    <div class="tab" id="tab1" onclick="chooseTab('1')">Image 1</div>#}
+{#    <div class="tab" id="tab2" onclick="chooseTab('2')">Image 2</div>#}
+{#    <div class="tab" id="tab3" onclick="chooseTab('3')">Image 3</div>#}
+<div class="tab" id="tab1">Image 1</div>
+<div class="tab" id="tab2">Image 2</div>
+<div class="tab" id="tab3">Image 3</div>
+
+<div id="tabContent"></div>
+</body>
+</html>

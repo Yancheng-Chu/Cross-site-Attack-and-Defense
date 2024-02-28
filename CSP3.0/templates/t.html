@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+{#    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src#}
+{#    'self' 'nonce-{{ nonce }}' ">#}
+{#    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; script-src 'self' 'unsafe-inline';">#}
+
+    <!-- Internal game scripts/styles, mostly boring stuff -->
+    <script nonce="{{ nonce }}"
+            src="/static/game-frame.js"></script>
+    <link rel="stylesheet" href="/static/game-frame-styles.css"/>
+
+    <script >
+{#        var timer = '{{ timer }}';#}
+{#        console.log('123132',timer)#}
+        function startTimer(seconds) {
+            console.log('123123123123',seconds)
+            seconds = parseInt(seconds) || 3;
+            setTimeout(function () {
+                window.confirm("Time is up!");
+                window.history.back();
+            }, seconds * 1000);
+        }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          let imgElement = document.getElementById('loadingImage');
+          console.log(imgElement)
+          imgElement.addEventListener('load', function () {
+ {#startTimer('{{ timer }}');#}
+              console.log(imgElement)
+
+          })
+      })
+{#    // 创建一个新的 Image 对象来加载图片#}
+{#     img = new Image();#}
+{#     console.log('000',img)#}
+{#    imgElement.src = '/static/loading.gif';#}
+{#console.log('333',imgElement)#}
+{#    // 添加一个事件监听器，以在图片加载完成时触发#}
+{#    imgElement.onload = function() {#}
+{#        // 执行您想要在图片加载完成时执行的操作#}
+{#        startTimer('{{ timer }}');#}
+        {#alert('1');#}
+{#    };#}
+{#    console.log('222',imgElement)#}
+
+            {#    document.addEventListener('DOMContentLoaded', function() {#}
+            {#// 在这里可以访问img标签并进行其他操作#}
+            {#var img = document.getElementById('loadingImage');#}
+            {#console.log('DOMContentLoaded事件触发',img);#}
+            {#            img.onload = function () {#}
+            {#    startTimer('{{ timer }}')#}
+            {#}#}
+            {#img.addEventListener('load',function() {#}
+            {#    startTimer('{{ timer }}')#}
+            {#})#}
+        {#});#}
+        {#startTimer(timer)#}
+        {#document.addEventListener("DOMContentLoaded", function () {#}
+{#            var img = document.getElementById('loadingImage');#}
+{#            console.log('111',img)#}
+{#            img.onload = function () {#}
+{#                startTimer('{{ timer }}')#}
+{#            }#}
+{##}
+            {#img.addEventListener('load',function() {#}
+            {#    startTimer('{{ timer }}')#}
+            {#})#}
+{#            var imgs = document.getElementById('loadingImage');#}
+{#             console.log('222',imgs)#}
+        {#})#}
+{##}
+{##}
+    </script>
+
+
+</head>
+<body id="level4">
+<img src="/static/level4.png"/>
+<br>
+
+{#<img src="/static/loading.gif" id="loadingImage" onload="startTimer('{{ timer }}');"/>#}
+    <img src="/static/loading.gif" id="loadingImage"/>
+{#    <img src="/static/loading.gif" id="loadingImage" onload="alert('123213')"/>#}
+
+
+<br>
+<div id="message">Your timer will execute in {{ timer }} seconds.</div>
+</body>
+</html>
+

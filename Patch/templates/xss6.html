@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Internal game scripts/styles, mostly boring stuff -->
+    <script src="/static/game-frame.js"></script>
+    <link rel="stylesheet" href="/static/game-frame-styles.css"/>
+
+    <script>
+        function setInnerText(element, value) {
+            if (element.innerText) {
+                element.innerText = value;
+            } else {
+                element.textContent = value;
+            }
+        }
+
+        function includeGadget(url) {
+            {#console.log('url', url)#}
+            // This will totally prevent us from loading evil URLs!
+            {#sendHashToServer(url)#}
+
+            var reg = /^((?!http[s]?:\/\/|data:).)*$/;
+            {#if (url.match(/^https?:\/\//i) || url.startsWith('//')) {#}
+            if (!reg.test(url)) {
+                {#console.log('hhhhhhhh', document.getElementById("log"))#}
+                {#triggerError('http')#}
+                setInnerText(document.getElementById("log"),
+                    "Sorry, cannot load a URL containing \"http\".");
+                return;
+            } else {
+
+
+                var scriptEl = document.createElement('script');
+
+                scriptEl.src = url;
+
+                scriptEl.onload = function () {
+                    {#if (!scriptEl.textContent.trim()) {#}
+                    {#    triggerError(url);#}
+                }
+                setInnerText(document.getElementById("log"),
+                    "Loaded gadget from " + url);
+            }
+
+            scriptEl.onerror = function () {
+                {#triggerError(url)#}
+                setInnerText(document.getElementById("log"),
+                    "Couldn't load gadget from " + url);
+            }
+            document.head.appendChild(scriptEl);
+
+
+        }
+
+        function getGadgetName() {
+            {#console.log('hash', window.location.hash)#}
+            return window.location.hash.substr(1) || "/static/gadget.js";
+        }
+
+        function triggerError(message) {
+            var error = new Event('message')
+            error.message = message
+            {#console.log('eeee', error)#}
+            console.log('mmmm',error)
+            window.dispatchEvent(error);
+        }
+
+        window.onload = function () {
+            let hash = getGadgetName()
+            var url = '/process_hash?hash=' + encodeURIComponent(hash);
+            {#console.log('uuuuuuuuuu', url)#}
+
+            fetch(url)
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    {#if (data) {#}
+                        hash = data
+                        if (!hash) {
+                            setInnerText(document.getElementById("log"),
+                                "Sorry, cannot load a URL containing \"http\".");
+                        } else {
+                            includeGadget(hash);
+
+                        }
+                        window.location.hash = getGadgetName()
+                    //}
+                })
+
+            {#includeGadget(hash);#}
+
+            // Extra code so that we can communicate with the parent page
+            window.addEventListener("message", function (event) {
+                if (event.target === parent) {
+                    {#includeGadget(getGadgetName())#}
+                    window.location.hash = getGadgetName()
+                }
+            }, false);
+        }
+
+
+    </script>
+</head>
+
+<body id="level6">
+{#  <a href="{{ url_with_hash }}">Click me</a>#}
+<img src="/static/level6.png">
+<img id="cube" src="/static/level6_cube.png">
+<div id="log">Loading gadget...</div>
+</body>
+</html>

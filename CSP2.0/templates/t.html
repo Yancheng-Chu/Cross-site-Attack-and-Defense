@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src
+    'self'    ">
+{#    'sha256-WT1'">#}
+    <!-- Internal game scripts/styles, mostly boring stuff -->
+    <script
+            src="/static/game-frame.js"></script>
+    <link rel="stylesheet" href="/static/game-frame-styles.css"/>
+    <script src="/static/timer.js">
+        {#function executeScript(scriptText) {#}
+        {#    var scriptElement = document.createElement('script');#}
+        {#    scriptElement.textContent = scriptText;#}
+            {#scriptElement.setAttribute('integrity','sha256-WTN2LdeoezfZyhlb9iezoOA428w3Tu1+/ZQj2BWWzBA=')#}
+        {##}
+        {#    document.head.appendChild(scriptElement);#}
+        {#}#}
+{##}
+{#        document.addEventListener("DOMContentLoaded", function () {#}
+{#            window.onload = function () {#}
+                {#var dynamicScript = "startTimer('{{ timer }}');";#}
+                {#console.log("111",dynamicScript.replaceAll('&#39;',"'"))#}
+                {#var timerValue = '{{ timer }}';#}
+                {#var dum = document.createElement('div');#}
+                {#dum.innerHTML = timerValue;#}
+                {#var decodedString = dum.textContent;#}
+
+                {#var scriptElement = document.createElement('script');#}
+                {#scriptElement.textContent = "startTimer('{{ timer }}')"#}
+                {#scriptElement.textContent = dynamicScript.replaceAll('&#39;',"'")#}
+                {#scriptElement.setAttribute('integrity','sha256-234')#}
+
+                {#document.head.appendChild(scriptElement);#}
+        {#    }#}
+        {#})#}
+
+    </script>
+</head>
+<body id="level4">
+<img src="/static/level4.png"/>
+<br>
+
+<img src="/static/loading.gif" id="loadingImage"/>
+{#    <img src="/static/loading.gif" />#}
+{#<img src="/static/loading.gif" id="loadingImage" />#}
+
+{#    <div id="loadingImage">#}
+{#        {{ js_code }}#}
+{#    </div>#}
+<br>
+<div id="message">Your timer will execute in {{ timer }} seconds.</div>
+</body>
+</html>
+
